@@ -26,12 +26,16 @@ gcloud alpha run services replace td-cr-prototype-sidecar.yaml
 
 ```shell
 curl  -s -H "authorization: Bearer $(gcloud auth print-identity-token)"  https://td-cr-prototype-sidecar-wtwvjvko3q-uc.a.run.app/config_dump > dump
+```
 
 ## Verify that the configuration contains the expected envoy configuration
+
+#### Verify active clusters
+```shell
 cat dump |  jq '.configs[1].dynamic_active_clusters' | grep name
 ```
 
-must output:
+must output names of individual clusters. Here's a sameple output
 
 ```
       "name": "cloud-internal-istio:cloud_mp_75445969589_3440763866634319801",
@@ -44,7 +48,34 @@ must output:
             "backend_service_name": "td-vm-service"
 ```
 
+#### Verify active clusters
+```shell
+cat dump |  jq '.configs[2].dynamic_listeners' | grep name
+```
 
+must output the listeners (sample output)
+
+```
+    "name": "TRAFFICDIRECTOR_INTERCEPTION_LISTENER",
+        "name": "TRAFFICDIRECTOR_INTERCEPTION_LISTENER",
+                "name": "envoy.http_connection_manager",
+                    "route_config_name": "URL_MAP/75445969589_td-gke-url-map"
+                      "name": "envoy.filters.http.fault",
+                      "name": "envoy.filters.http.cors",
+                      "name": "envoy.filters.http.router",
+            "name": "GLOBAL:global/PROJECT:75445969589/FORWARDING_RULE:td-gke-forwarding-rule/80/7063672130607539552"
+                "name": "envoy.http_connection_manager",
+                    "route_config_name": "URL_MAP/75445969589_my-url-map"
+                      "name": "envoy.filters.http.fault",
+                      "name": "envoy.filters.http.cors",
+                      "name": "envoy.filters.http.router",
+            "name": "GLOBAL:global/PROJECT:75445969589/FORWARDING_RULE:td-sd-1-demo-forwarding-rule/80/7241976422295909794"
+                "name": "envoy.http_connection_manager",
+                    "route_config_name": "URL_MAP/75445969589_my-url-map"
+                      "name": "envoy.filters.http.fault",
+                      "name": "envoy.filters.http.cors",
+                      "name": "envoy.filters.http.router",
+```
 
 
 
