@@ -28,14 +28,20 @@ gcloud alpha run services replace td-cr-prototype-sidecar.yaml
 curl  -s -H "authorization: Bearer $(gcloud auth print-identity-token)"  https://td-cr-prototype-sidecar-wtwvjvko3q-uc.a.run.app/config_dump > dump
 
 ## Verify that the configuration contains the expected envoy configuration
-cat dump |  jq '.configs[1].dynamic_active_clusters' | head -6
-[
-  {
-    "version_info": "1683819042897422159",
-    "cluster": {
-      "@type": "type.googleapis.com/envoy.config.cluster.v3.Cluster",
-      "name": "cloud-internal-istio:cloud_mp_75445969589_3440763866634319801",
+cat dump |  jq '.configs[1].dynamic_active_clusters' | grep name
+```
 
+must output:
+
+```
+      "name": "cloud-internal-istio:cloud_mp_75445969589_3440763866634319801",
+            "backend_service_name": "td-sd-demo-service"
+      "alt_stat_name": "/projects/75445969589/global/backendServices/td-sd-demo-service",
+      "name": "cloud-internal-istio:cloud_mp_75445969589_8121977782063906176",
+            "backend_service_name": "td-gke-service"
+      "alt_stat_name": "/projects/75445969589/global/backendServices/td-gke-service",
+      "name": "cloud-internal-istio:cloud_mp_75445969589_8552676612880814935",
+            "backend_service_name": "td-vm-service"
 ```
 
 
