@@ -1,0 +1,138 @@
+{
+ "node": {
+  "id": "projects/75445969589/networks/default/nodes/td-vm-mig-us-west1-wdm7.us-west1-b.10.138.0.6",
+  "cluster": "cluster",
+  "metadata": {
+   "INSTANCE_IP": "10.138.0.6",
+   "TRAFFICDIRECTOR_CLIENT_TYPE": "gce-managed-envoy",
+   "TRAFFICDIRECTOR_INTERCEPTION_PORT": "15001",
+   "TRAFFICDIRECTOR_NETWORK_NAME": "default"
+  },
+  "locality": {
+   "zone": "us-west1-b"
+  }
+ },
+ "dynamicResources": {
+  "ldsConfig": {
+   "ads": {},
+   "resourceApiVersion": "V3"
+  },
+  "cdsConfig": {
+   "ads": {},
+   "resourceApiVersion": "V3"
+  },
+  "adsConfig": {
+   "apiType": "GRPC",
+   "transportApiVersion": "V3",
+   "grpcServices": [
+    {
+     "googleGrpc": {
+      "targetUri": "trafficdirector.googleapis.com:443",
+      "channelCredentials": {
+       "sslCredentials": {
+        "rootCerts": {
+         "filename": "/etc/ssl/certs/ca-certificates.crt"
+        }
+       }
+      },
+      "callCredentials": [
+       {
+        "googleComputeEngine": {}
+       }
+      ],
+      "statPrefix": "trafficdirector",
+      "channelArgs": {
+       "args": {
+        "grpc.http2.max_pings_without_data": {
+         "intValue": "0"
+        },
+        "grpc.keepalive_time_ms": {
+         "intValue": "10000"
+        },
+        "grpc.keepalive_timeout_ms": {
+         "intValue": "20000"
+        }
+       }
+      }
+     }
+    }
+   ]
+  }
+ },
+ "clusterManager": {
+  "loadStatsConfig": {
+   "apiType": "GRPC",
+   "transportApiVersion": "V3",
+   "grpcServices": [
+    {
+     "googleGrpc": {
+      "targetUri": "trafficdirector.googleapis.com:443",
+      "channelCredentials": {
+       "sslCredentials": {
+        "rootCerts": {
+         "filename": "/etc/ssl/certs/ca-certificates.crt"
+        }
+       }
+      },
+      "callCredentials": [
+       {
+        "googleComputeEngine": {}
+       }
+      ],
+      "statPrefix": "trafficdirector",
+      "channelArgs": {
+       "args": {
+        "grpc.http2.max_pings_without_data": {
+         "intValue": "0"
+        },
+        "grpc.keepalive_time_ms": {
+         "intValue": "10000"
+        },
+        "grpc.keepalive_timeout_ms": {
+         "intValue": "20000"
+        }
+       }
+      }
+     }
+    }
+   ]
+  }
+ },
+ "tracing": {
+  "http": {
+   "name": "envoy.tracers.opencensus",
+   "typedConfig": {
+    "@type": "type.googleapis.com/envoy.config.trace.v3.OpenCensusConfig",
+    "stackdriverProjectId": "75445969589",
+    "incomingTraceContext": [
+     "CLOUD_TRACE_CONTEXT"
+    ],
+    "outgoingTraceContext": [
+     "CLOUD_TRACE_CONTEXT"
+    ]
+   }
+  }
+ },
+ "layeredRuntime": {
+  "layers": [
+   {
+    "name": "rtds_layer",
+    "rtdsLayer": {
+     "name": "traffic_director_runtime",
+     "rtdsConfig": {
+      "ads": {},
+      "resourceApiVersion": "V3"
+     }
+    }
+   }
+  ]
+ },
+ "admin": {
+  "address": {
+   "socketAddress": {
+    "address": "0.0.0.0",
+    "portValue": 15000
+   }
+  }
+ }
+}
