@@ -1,0 +1,42 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  annotations:
+    run.googleapis.com/ingress: all
+    run.googleapis.com/ingress-status: all
+    run.googleapis.com/operation-id: 8db64520-f7d3-4ff0-bade-3500c2441db3
+  labels:
+    cloud.googleapis.com/location: us-central1
+  name: td-cr-prototype-helloworld
+  namespace: '75445969589'
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/maxScale: '100'
+        run.googleapis.com/client-name: gcloud
+        run.googleapis.com/client-version: 430.0.0
+        run.googleapis.com/execution-environment: gen2
+        run.googleapis.com/vpc-access-connector: projects/network-testing-1-300022/locations/us-central1/connectors/serverlesscon
+        run.googleapis.com/vpc-access-egress: private-ranges-only
+    spec:
+      containerConcurrency: 80
+      containers:
+      - image: gcr.io/network-testing-1-300022/td-cr-prototype-helloworld:latest
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 1000m
+            memory: 512Mi
+        startupProbe:
+          failureThreshold: 1
+          periodSeconds: 230
+          tcpSocket:
+            port: 8080
+          timeoutSeconds: 230
+      serviceAccountName: 75445969589-compute@developer.gserviceaccount.com
+      timeoutSeconds: 300
+  traffic:
+  - latestRevision: true
+    percent: 100
