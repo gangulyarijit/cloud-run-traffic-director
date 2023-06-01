@@ -33,4 +33,15 @@ Will not work!
 
 ### Deploy an application with multi-container sidecar
 
+```shell
+gcloud run services replace td-cr-prototype-mt.yaml
+```
+
+### Veriy that the application can talk to service mesh
+
+```shell
+curl  -H  "Content-Type: application/json" -H "authorization: Bearer $(gcloud auth print-identity-token)" https://td-cr-prototype-helloworld-wtwvjvko3q-uc.a.run.app -d '{"command":"http://10.0.0.3"}'
+```
+
+should work and be able to hit the service behind the forwarding rule (10.0.0.3)
 
