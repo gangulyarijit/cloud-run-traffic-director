@@ -15,6 +15,7 @@
 # [START cloudrun_helloworld_service]
 # [START run_helloworld_service]
 import os
+import sys
 import subprocess
 import urllib.request
 
@@ -30,11 +31,11 @@ def hello_world():
     print(request_args)
     cmd = "https://google.com"
     if request_args and 'command' in request_args:
-        print("reading command")
+        print("reading command", file=sys.stderr)
         cmd = request_args.get('command')
     else:
-        print('using default command')
-    print("Curling with timeout to:", cmd)
+        print('using default command', file=sys.stderr)
+    print("Curling with timeout to:", cmd, file=sys.stderr)
     contents = urllib.request.urlopen(cmd, timeout=5).read()
     return contents
 
