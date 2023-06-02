@@ -1,5 +1,5 @@
 # Instructions to deploy a CloudRun app that participates in a Traffic Director mesh
-The application performs an HTTP GET against a URL passed as input. 
+The application performs an HTTP GET against a URL passed as input. Steps here assume that you have completed those described (here)[https://github.com/gangulyarijit/cloud-run-traffic-director/edit/main/image-mt/helloworld-sidecar/README.md], that verifies you have the right connectivity and permissions to communicate with TrafficDirector.  
 
 > Please edit the projectId and resource identifiers as appropriate
 
