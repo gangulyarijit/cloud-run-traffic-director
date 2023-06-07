@@ -1,15 +1,15 @@
 {
  "node": {
-  "id": "projects/75445969589/networks/default/nodes/td-vm-mig-us-west1-wdm7.us-west1-b.10.138.0.6",
+  "id": "projects/75445969589/networks/default/nodes/1a25af38-b244-4929-a8de-42d456b39d5f~10.128.15.XXX",
   "cluster": "cluster",
   "metadata": {
-   "INSTANCE_IP": "10.138.0.6",
+   "INSTANCE_IP": "0.0.0.0",
    "TRAFFICDIRECTOR_CLIENT_TYPE": "gce-managed-envoy",
    "TRAFFICDIRECTOR_INTERCEPTION_PORT": "15001",
    "TRAFFICDIRECTOR_NETWORK_NAME": "default"
   },
   "locality": {
-   "zone": "us-west1-b"
+   "zone": "us-central1-b"
   }
  },
  "dynamicResources": {
